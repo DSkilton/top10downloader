@@ -15,8 +15,14 @@ public class MainActivity extends AppCompatActivity {
 
     //first parameter is URL, second parameter is for progress bar, last parameter is type of result
     private class DownloadData extends AsyncTask<String, Void, String>{
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
 
-
-
+        @Override
+        protected String doInBackground(String... strings) {
+            return null;
+        }
     }
 }
