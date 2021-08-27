@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private class DownloadData extends AsyncTask<String, Void, String>{
         private static final String TAG = "DownloadData";
 
+
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
@@ -58,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 int response = connection.getResponseCode();
                 Log.d(TAG, "downloadXML: The repsonse was " + response);
-                InputStream inputStream = new InputStreamReader(inputStream);
+                InputStream inputStream = connection.getInputStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                 BufferedReader reader = new BufferedReader(inputStreamReader);
             } catch (MalformedURLException e) {
                 Log.e(TAG, "downloadXML: Invalid URL" + e.getMessage());
