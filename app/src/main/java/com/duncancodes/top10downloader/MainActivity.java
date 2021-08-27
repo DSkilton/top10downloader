@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
                 BufferedReader reader = new BufferedReader(inputStreamReader);
             } catch (MalformedURLException e) {
                 Log.e(TAG, "downloadXML: Invalid URL" + e.getMessage());
+            } catch (IOException e){
+                Log.e(TAG, "downloadXML: IO Exception reading data " + e.getMessage());
             }
             return "";
         }
