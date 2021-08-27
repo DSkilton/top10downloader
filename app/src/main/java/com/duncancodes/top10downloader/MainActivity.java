@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.Buffer;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -59,9 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 int response = connection.getResponseCode();
                 Log.d(TAG, "downloadXML: The repsonse was " + response);
-                InputStream inputStream = connection.getInputStream();
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader reader = new BufferedReader(inputStreamReader);
+//                InputStream inputStream = connection.getInputStream();                    //These three lines can be replaced with the
+//                InputStreamReader inputStreamReader = new InputStreamReader(inputStream); //single line command on line 66
+//                BufferedReader reader = new BufferedReader(inputStreamReader);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             } catch (MalformedURLException e) {
                 Log.e(TAG, "downloadXML: Invalid URL" + e.getMessage());
             } catch (IOException e){
