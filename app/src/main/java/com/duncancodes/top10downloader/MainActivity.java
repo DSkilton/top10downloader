@@ -64,6 +64,19 @@ public class MainActivity extends AppCompatActivity {
 //                InputStreamReader inputStreamReader = new InputStreamReader(inputStream); //single line command on line 66
 //                BufferedReader reader = new BufferedReader(inputStreamReader);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                
+                int charsRead;
+                char[] inputBuffer = new char[500];
+                while(true){
+                    charsRead = reader.read(inputBuffer);
+                    if(charsRead < 0){
+                        break;
+                    }
+                    if(charsRead > 0){
+                        xmlResult.append(String.copyValueOf(inputBuffer, 0, charsRead));
+                    }
+                }
+
             } catch (MalformedURLException e) {
                 Log.e(TAG, "downloadXML: Invalid URL" + e.getMessage());
             } catch (IOException e){
