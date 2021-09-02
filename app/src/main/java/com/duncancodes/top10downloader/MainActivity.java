@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: starting Asynctask");
         DownloadData downloadData = new DownloadData();
-        downloadData.execute("URL goes here");
+        downloadData.execute("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=10/xml");
         Log.d(TAG,"onCreate: done");//log d reports at debug level
 
     }
@@ -72,17 +72,23 @@ public class MainActivity extends AppCompatActivity {
                     if(charsRead < 0){  // detects the reader returns a value less than 0 there is no more data
                         break;          // and the loop will break
                     }
-                    if(charsRead > 0){
+                    if(charsRead > 0){  //0kb of data can be returned hence waiting for more than 0 before appending
                         xmlResult.append(String.copyValueOf(inputBuffer, 0, charsRead));
-                    }
+                    } //charsRead will append the characters as required rather than 500 per time
                 }
+                reader.close(); //this close all 3 IO objects on line 66
+
+                return xmlResult.toString();
 
             } catch (MalformedURLException e) {
                 Log.e(TAG, "downloadXML: Invalid URL" + e.getMessage());
             } catch (IOException e){
                 Log.e(TAG, "downloadXML: IO Exception reading data " + e.getMessage());
+            } catch (SecurityException e){
+                Log.e(TAG, "downloadXML: Security Exception. Needs permission? " + e.getMessage());
+                e.printStackTrace();
             }
-            return "";
+            return null;
         }
     }
 }
